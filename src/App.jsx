@@ -21,7 +21,7 @@ function App() {
   // Fetch function that fetches data from the provided GET
   const fetchPokemon = async () => {
     // Referencing the useState so that only 20 pokemone are pulled at a time
-    const res = await fetch(`https://pokeapi.co/api/v2/pokemon?_start=${pokePage[0]}&_end=${pokePage[1]}`);
+    const res = await fetch(`https://pokeapi.co/api/v2/pokemon?offset=${pokePage[0]}&limit=${pokePage[1]}`);
     const data = await res.json();
     setPokemon(data);
     console.log(data);
