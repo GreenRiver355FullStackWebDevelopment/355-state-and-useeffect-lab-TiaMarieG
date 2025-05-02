@@ -27,7 +27,24 @@ function App() {
     console.log(data);
   };
 
+  // Creating a click function where when the 'Next' button is clicked, it will move to the next 20 pokemon
+  const onClickNext = () => {
+    if (pokePage[0] + pokePage[1] < 1302) {
+      setPokePage(([offset, limit]) => [offset + limit, limit]);
+    }
+    else {
+      setPokePage([0, 20]);
+    }
+  };
 
+  // Creating a click function where when the 'Back' button is clicked, it will move to the previous 20 pokemon
+  // Or if it is on the first 'page' of pokemon, it will do nothing
+  const onClickBack = () => {
+    setPokePage(([offset, limit]) => {
+      if (offset == 0) return [offset, limit];
+      return [offset - limit, limit];
+    });
+  };
 
   return (
     <div className="App">
@@ -36,8 +53,8 @@ function App() {
         <div>
           <Cards pokemon={pokemon} />
           <div>
-            <button>Back</button>
-            <button>Next</button>
+            <button onClick={onClickBack}>Back</button>
+            <button onClick={onClickNext}>Next</button>
           </div>
         </div>
 
