@@ -35,7 +35,6 @@ const Cards = ({ pokemon }) => {
         {pokemon.results?.map((pokemon, index) => (
           <Button
             key={index}
-            className="pokeCard"
             // When a specific pokemon is clicked, their details are displayed
             onClick={() => onPokemonClick(pokemon.url.split("/")[6])}
             sx={{
