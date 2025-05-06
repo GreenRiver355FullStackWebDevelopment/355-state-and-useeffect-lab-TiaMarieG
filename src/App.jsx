@@ -1,10 +1,12 @@
 // Import useState/useEffect so that the Pokemon data can be fetched
-import { useState, useEffect } from 'react'
+import { useState, useEffect } from "react";
+
+import { Box, Button } from "@mui/material";
 
 // Importing the Cards component that will render an interable list of the 20 available pokemon
-import Cards from './components/Cards'
+import Cards from "./components/Cards";
 
-import './App.css'
+import "./App.css";
 
 function App() {
   // Setting useState to an empty array so the effect will only run once on mount
@@ -21,7 +23,9 @@ function App() {
   // Fetch function that fetches data from the provided GET
   const fetchPokemon = async () => {
     // Referencing the useState so that only 20 pokemone are pulled at a time
-    const res = await fetch(`https://pokeapi.co/api/v2/pokemon?offset=${pokePage[0]}&limit=${pokePage[1]}`);
+    const res = await fetch(
+      `https://pokeapi.co/api/v2/pokemon?offset=${pokePage[0]}&limit=${pokePage[1]}`
+    );
     const data = await res.json();
     setPokemon(data);
     console.log(data);
@@ -31,8 +35,7 @@ function App() {
   const onClickNext = () => {
     if (pokePage[0] + pokePage[1] < 1302) {
       setPokePage(([offset, limit]) => [offset + limit, limit]);
-    }
-    else {
+    } else {
       setPokePage([0, 20]);
     }
   };
@@ -47,22 +50,40 @@ function App() {
   };
 
   return (
-    <div className="App">
-      <h1>Pokemon List</h1>
-      <div className="main-container">
-        <div>
-          
-          <Cards pokemon={pokemon} />
-          <div>
-            <button onClick={onClickBack}>Back</button>
-            <button onClick={onClickNext}>Next</button>
-          </div>
-        </div>
+    <Box className="App">
+      <h1>Pokémon List</h1>
 
+      <Cards pokemon={pokemon} />
+
+      <div>
+        <Button
+          onClick={onClickBack}
+          variant="contained"
+          disabled={pokePage[0] === 0}
+          sx={{
+            mr: 3,
+            mt: 5,
+            backgroundColor: pokePage[0] === 0 ? "black" : "gold",
+            color: "black",
+            '&.Mui-disabled': {
+              backgroundColor: 'grey',
+              color: 'black',
+            },
+          }}
+        >
+          Back
+        </Button>
+
+        <Button
+          onClick={onClickNext}
+          variant="contained"
+          sx={{ mt: 5, backgroundColor: "gold", color: "black" }}
+        >
+          Next
+        </Button>
       </div>
-      
-    </div>
-  )
+    </Box>
+  );
 }
 
-export default App
+export default App;
