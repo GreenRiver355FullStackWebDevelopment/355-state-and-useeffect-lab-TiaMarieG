@@ -51,6 +51,7 @@ function App() {
       <h1>Pokemon List</h1>
       <div className="main-container">
         <div>
+          
           <Cards pokemon={pokemon} />
           <div>
             <button onClick={onClickBack}>Back</button>
